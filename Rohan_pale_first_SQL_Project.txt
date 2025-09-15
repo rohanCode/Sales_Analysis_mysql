@@ -1,0 +1,312 @@
+create database SQL_Project1;
+
+
+use SQL_project1;
+
+
+CREATE TABLE customers (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(100),
+    email VARCHAR(100),
+    city VARCHAR(50),
+    join_date DATE
+);
+
+INSERT INTO customers (cust_id, cust_name, email, city, join_date) VALUES
+(1, 'Rohan Sharma', 'rohan1@example.com', 'Delhi', '2022-01-15'),
+(2, 'Priya Singh', 'priya2@example.com', 'Mumbai', '2022-02-10'),
+(3, 'Amit Verma', 'amit3@example.com', 'Bangalore', '2022-03-20'),
+(4, 'Neha Kapoor', 'neha4@example.com', 'Delhi', '2022-04-05'),
+(5, 'Arjun Mehta', 'arjun5@example.com', 'Chennai', '2022-05-12'),
+(6, 'Kriti Joshi', 'kriti6@example.com', 'Hyderabad', '2022-06-18'),
+(7, 'Sahil Khan', 'sahil7@example.com', 'Kolkata', '2022-07-01'),
+(8, 'Meera Nair', 'meera8@example.com', 'Pune', '2022-08-25'),
+(9, 'Ravi Malhotra', 'ravi9@example.com', 'Delhi', '2022-09-15'),
+(10, 'Simran Kaur', 'simran10@example.com', 'Mumbai', '2022-10-05'),
+(11, 'Vikram Rao', 'vikram11@example.com', 'Bangalore', '2022-11-10'),
+(12, 'Ananya Gupta', 'ananya12@example.com', 'Chennai', '2022-12-22'),
+(13, 'Deepak Yadav', 'deepak13@example.com', 'Delhi', '2023-01-05'),
+(14, 'Sonia Gill', 'sonia14@example.com', 'Hyderabad', '2023-02-18'),
+(15, 'Kabir Bansal', 'kabir15@example.com', 'Pune', '2023-03-09'),
+(16, 'Isha Sharma', 'isha16@example.com', 'Kolkata', '2023-04-20'),
+(17, 'Manish Rathi', 'manish17@example.com', 'Delhi', '2023-05-11'),
+(18, 'Tanya Aggarwal', 'tanya18@example.com', 'Mumbai', '2023-06-30'),
+(19, 'Rahul Jain', 'rahul19@example.com', 'Bangalore', '2023-07-15'),
+(20, 'Sneha Iyer', 'sneha20@example.com', 'Chennai', '2023-08-22');
+
+
+CREATE TABLE products (
+    prod_id INT PRIMARY KEY,
+    prod_name VARCHAR(100),
+    category VARCHAR(50),
+    price DECIMAL(10,2)
+);
+
+INSERT INTO products (prod_id, prod_name, category, price) VALUES
+(101, 'Laptop', 'Electronics', 55000),
+(102, 'Mobile Phone', 'Electronics', 20000),
+(103, 'Headphones', 'Accessories', 2500),
+(104, 'Shoes', 'Fashion', 3000),
+(105, 'Wrist Watch', 'Fashion', 5000),
+(106, 'Tablet', 'Electronics', 30000),
+(107, 'Smart TV', 'Electronics', 45000),
+(108, 'Camera', 'Electronics', 38000),
+(109, 'Keyboard', 'Accessories', 1500),
+(110, 'Backpack', 'Fashion', 2000),
+(111, 'Sunglasses', 'Fashion', 3500),
+(112, 'Smartwatch', 'Electronics', 12000),
+(113, 'Bluetooth Speaker', 'Accessories', 4000),
+(114, 'Gaming Console', 'Electronics', 60000),
+(115, 'Perfume', 'Fashion', 2500);
+
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    cust_id INT,
+    order_date DATE,
+    total_amount DECIMAL(10,2),
+    FOREIGN KEY (cust_id) REFERENCES customers(cust_id)
+);
+
+
+INSERT INTO orders (order_id, cust_id, order_date, total_amount) VALUES
+(1001, 18, '2023-05-02', 3000),
+(1002, 15, '2022-08-14', 30000),
+(1003, 13, '2022-09-23', 230000),
+(1004, 13, '2023-02-22', 65000),
+(1005, 10, '2022-10-12', 50000),
+(1006, 1, '2022-07-16', 26000),
+(1007, 5, '2023-05-14', 102000),
+(1008, 1, '2022-07-02', 39500),
+(1009, 1, '2023-04-26', 7500),
+(1010, 11, '2022-05-15', 60000),
+(1011, 6, '2022-09-19', 270000),
+(1012, 18, '2022-08-20', 42500),
+(1013, 1, '2023-02-28', 90000),
+(1014, 14, '2023-02-11', 104500),
+(1015, 9, '2022-09-10', 154500),
+(1016, 1, '2022-07-07', 117500),
+(1017, 6, '2022-08-20', 157500),
+(1018, 14, '2023-02-10', 19500),
+(1019, 19, '2022-10-21', 65000),
+(1020, 8, '2022-07-13', 167500),
+(1021, 1, '2022-12-30', 184000),
+(1022, 15, '2022-08-29', 116000),
+(1023, 15, '2023-03-05', 81000),
+(1024, 12, '2022-12-12', 36000),
+(1025, 19, '2023-03-18', 17000),
+(1026, 1, '2022-10-19', 35000),
+(1027, 12, '2022-05-07', 51000),
+(1028, 12, '2022-06-17', 34500),
+(1029, 10, '2022-08-23', 117500),
+(1030, 18, '2022-11-07', 4000);
+
+CREATE TABLE order_items (
+    item_id INT PRIMARY KEY,
+    order_id INT,
+    prod_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (prod_id) REFERENCES products(prod_id)
+);
+
+INSERT INTO order_items (item_id, order_id, prod_id, quantity) VALUES
+(1, 1001, 109, 2),
+(2, 1002, 110, 3),
+(3, 1002, 112, 2),
+(4, 1003, 114, 2),
+(5, 1003, 107, 2),
+(6, 1003, 102, 1),
+(7, 1004, 106, 2),
+(8, 1004, 103, 2),
+(9, 1005, 105, 2),
+(10, 1005, 102, 2),
+(11, 1006, 104, 1),
+(12, 1006, 109, 2),
+(13, 1006, 102, 1),
+(14, 1007, 110, 3),
+(15, 1007, 104, 2),
+(16, 1007, 107, 2),
+(17, 1008, 112, 3),
+(18, 1008, 111, 1),
+(19, 1009, 115, 3),
+(20, 1010, 106, 2),
+(21, 1011, 107, 2),
+(22, 1011, 114, 3),
+(23, 1012, 102, 2),
+(24, 1012, 115, 1),
+(25, 1013, 108, 1),
+(26, 1013, 102, 2),
+(27, 1013, 113, 3),
+(28, 1014, 107, 2),
+(29, 1014, 111, 2),
+(30, 1014, 103, 3),
+(31, 1015, 112, 2),
+(32, 1015, 114, 2),
+(33, 1015, 111, 3),
+(34, 1016, 108, 3),
+(35, 1016, 111, 1),
+(36, 1017, 109, 1),
+(37, 1017, 114, 2),
+(38, 1017, 112, 3),
+(39, 1018, 113, 3),
+(40, 1018, 103, 3),
+(41, 1019, 105, 2),
+(42, 1019, 101, 1),
+(43, 1020, 103, 1),
+(44, 1020, 101, 3),
+(45, 1021, 108, 1),
+(46, 1021, 101, 2),
+(47, 1021, 112, 3),
+(48, 1022, 101, 2),
+(49, 1022, 104, 2),
+(50, 1023, 108, 2),
+(51, 1023, 105, 1),
+(52, 1024, 112, 3),
+(53, 1025, 103, 2),
+(54, 1025, 113, 3),
+(55, 1026, 106, 1),
+(56, 1026, 105, 1),
+(57, 1027, 110, 3),
+(58, 1027, 107, 1),
+(59, 1028, 106, 1),
+(60, 1028, 109, 3),
+(61, 1029, 101, 2),
+(62, 1029, 109, 1),
+(63, 1029, 110, 3),
+(64, 1030, 110, 2);
+
+
+
+-- 1. Retrieve all customer names and their cities.
+
+select cust_name, city
+from customers;
+
+-- 2. List all products in the Electronics category.
+
+select prod_name
+from products
+where category = 'electronics';
+
+-- 3. Show all orders placed in June 2022.
+
+SELECT *
+FROM orders
+WHERE order_date BETWEEN '2022-06-01' AND '2022-06-30';
+
+-- 4. Find the details of the order with order_id = 1005.
+select * from orders
+where order_id = 1005;
+
+-- 5. Get the total number of customers from Delhi.
+
+select count(cust_id) as total_no_cust
+from customers
+where city = 'delhi';
+
+
+-- 6. Show each order with the customer name who placed it.
+
+select c.cust_name, o.order_id
+from customers c
+join orders o
+on c.cust_id = o.cust_id;
+
+-- 7. List all products purchased by Rohan Sharma.
+
+SELECT DISTINCT p.prod_name, c.cust_name
+FROM customers c
+JOIN orders o
+  ON c.cust_id = o.cust_id
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+JOIN products p
+  ON oi.prod_id = p.prod_id
+WHERE c.cust_name = 'Rohan Sharma';
+
+-- 8. Get the product name and quantity for order_id = 1001.
+
+select p.prod_name, oi.quantity
+from  order_items oi
+join products p
+  on oi.prod_id = p.prod_id
+join orders o
+  on oi.order_id = o.order_id
+where o.order_id = 1001;
+
+-- 9. Find all customers who bought items from the Fashion category.
+
+SELECT c.cust_id, c.cust_name
+FROM customers c
+JOIN orders o
+  ON c.cust_id = o.cust_id
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+JOIN products p
+  ON oi.prod_id = p.prod_id
+WHERE p.category = 'Fashion';
+
+-- 10. Show all customers who have placed more than 1 order.
+
+SELECT c.cust_name, COUNT(o.order_id) AS total_orders
+FROM customers c
+JOIN orders o
+  ON c.cust_id = o.cust_id
+GROUP BY c.cust_name
+HAVING COUNT(o.order_id) > 1;
+
+
+-- 11. Find the total sales amount for each customer.
+
+select c.cust_id, c.cust_name, sum(total_amount) as total_sales_amount
+from customers c
+join orders o
+on o.cust_id = c.cust_id
+group by cust_id
+order by cust_id asc;
+
+
+-- 12. Show the most expensive product purchased in any order.
+
+SELECT p.prod_id, p.prod_name, p.price AS most_expensive
+FROM order_items oi
+JOIN products p
+  ON oi.prod_id = p.prod_id
+ORDER BY p.price DESC
+LIMIT 1;
+
+-- 13. Find the average order value across all customers.
+
+select c.cust_id, avg(p.price) as avg_order_price
+FROM customers c
+JOIN orders o
+  ON c.cust_id = o.cust_id
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+JOIN products p
+  ON oi.prod_id = p.prod_id
+  group by c.cust_id;
+
+-- 14. List the top 3 customers by spending.
+
+SELECT c.cust_id, c.cust_name,
+       SUM(oi.quantity * p.price) AS total_spending
+FROM customers c
+JOIN orders o
+  ON c.cust_id = o.cust_id
+JOIN order_items oi
+  ON o.order_id = oi.order_id
+JOIN products p
+  ON oi.prod_id = p.prod_id
+GROUP BY c.cust_id, c.cust_name
+ORDER BY total_spending DESC
+LIMIT 3;
+
+-- 15. Find customers who have never placed an order.
+
+SELECT c.cust_name
+FROM customers c
+LEFT JOIN orders o
+  ON c.cust_id = o.cust_id
+WHERE o.order_id IS NULL;
